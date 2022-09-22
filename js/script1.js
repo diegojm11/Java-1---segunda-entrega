@@ -1,6 +1,5 @@
 
-const productos = [
-    {id: 1, marca: "fender", modelo: "stratocaster", precio: 2100, img: "./img/stratocaster.jpg"},
+const productos = [ 
     {id: 2, marca: "fender", modelo: "telecaster", precio: 1700, img: "./img/telecaster.jpg"},
     {id: 3, marca: "fender", modelo: "jaguar", precio: 1500, img:"./img/jaguar.jpg" },
     {id: 4, marca: "fender", modelo: "mustang", precio: 1300, img:"./img/mustang.jpg"},
@@ -67,11 +66,15 @@ function renderizarCarrito (){
      <p>$${prod.precio}</p>
      <p>Candidad:${prod.cantidad}</p>
      <img style= "height: 80px" src="${prod.img}" alt="">
+     <button id=botonSumar${prod.id}>+</button>
+     <button id=botonRestar${prod.id}>-</button>
      <button style= "margin: 10px; class="btnCarrito" id="btn-eliminar${prod.id}">Eliminar</button>
     `
   })
   localStorage.setItem("carrito", JSON.stringify(carrito))
   borrarProducto()
+  botonSumar()
+  botonRestar()
 
 }
 
@@ -85,6 +88,25 @@ function borrarProducto(){
   })
 }
 
+function botonSumar(){
+  carrito.forEach(producto=>{
+    document.querySelector(`#botonSumar${producto.id}`).addEventListener("click",()=>{
+       carrito.find(element=>element.id === producto.id)
+       producto.cantidad++
+      renderizarCarrito()
+    })
+  })  
+}
+
+function botonRestar(){
+  carrito.forEach(producto=>{
+    document.querySelector(`#botonRestar${producto.id}`).addEventListener("click",()=>{
+       carrito.find(element=>element.id === producto.id)
+       producto.cantidad--
+      renderizarCarrito()
+    })
+  })  
+}
 
 renderizarCarrito()
 crearCards();
