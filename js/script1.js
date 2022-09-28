@@ -40,19 +40,36 @@ function agregarFuncionAlBoton(){
 
 function agregarAlCarrito(parametro){
   
+  carrito.some(prod=> prod.id === parametro.id) ? cantidad++ : parametro.cantidad = 1; carrito.push(parametro);
+ 
+  /* 
   let existe = carrito.some(prod=> prod.id === parametro.id);
-  
-  if (existe === false) { /* la primera vez que ingresa parametro es por aca */
+
+  if (existe === false) { 
       parametro.cantidad = 1;
       carrito.push(parametro)} 
 
-  else{  /* sino por aca */
-    let prodFind = carrito.find(prod=> prod.id === parametro.id);
-    prodFind.cantidad++;
-  }
+  else{  
+    let prodFind = carrito.find(prod=> prod.id === parametro.id),prodFind.cantidad++
+  } */
 
   console.log(carrito);  
   renderizarCarrito()
+  
+Toastify({
+  text: "Agregaste un producto al Carrito",
+  duration: 3000,
+ /*  destination: "https://github.com/apvarun/toastify-js",
+  newWindow: true, */
+  close: true,
+  gravity: "top", // `top` or `bottom`
+  position: "right", // `left`, `center` or `right`
+  stopOnFocus: true, // Prevents dismissing of toast on hover
+  style: {
+    background: "linear-gradient(to right, grey, #96c93d)",
+  },
+  onClick: function(){} // Callback after click
+}).showToast();
 }  
 
 
@@ -84,8 +101,23 @@ function borrarProducto(){
       let indice = carrito.findIndex(element=>element.id === producto.id)
       carrito.splice(indice,1)
       renderizarCarrito()
+      Toastify({
+        text: "Eliminaste un producto del Carrito",
+        duration: 3000,
+       /*  destination: "https://github.com/apvarun/toastify-js",
+        newWindow: true, */
+        close: true,
+        gravity: "bottom", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "linear-gradient(to right, grey, red)",
+        },
+        onClick: function(){} // Callback after click
+      }).showToast();
     })
   })
+  
 }
 
 function botonSumar(){
