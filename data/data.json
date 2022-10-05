@@ -1,0 +1,9 @@
+[{"id": 1, "marca": "fender", "modelo": "stratocaster", "precio": 1700, "img": "./img/stratocaster.jpg"},
+{"id": 2, "marca": "fender", "modelo": "telecaster", "precio": 1700, "img": "./img/telecaster.jpg"},
+{"id": 3, "marca": "fender", "modelo": "jaguar", "precio": 1500, "img":"./img/jaguar.jpg" },
+{"id": 4, "marca": "fender", "modelo": "mustang", "precio": 1300, "img":"./img/mustang.jpg"},
+{"id": 5, "marca": "gibson", "modelo": "les paul", "precio": 2500, "img": "./img/lespaul.jpg"},
+{"id": 6, "marca": "gibson", "modelo": "sg", "precio": 1800, "img":"./img/sg.jpg"},
+{"id": 7, "marca": "gibson", "modelo": "335", "precio": 4000, "img":"./img/335.jpg"},
+{"id": 8, "marca": "gibson", "modelo": "explorer", "precio": 2000, "img":"./img/explorer.jpg"}
+]

@@ -1,21 +1,30 @@
 
-const productos = [ 
-    {id: 2, marca: "fender", modelo: "telecaster", precio: 1700, img: "./img/telecaster.jpg"},
-    {id: 3, marca: "fender", modelo: "jaguar", precio: 1500, img:"./img/jaguar.jpg" },
-    {id: 4, marca: "fender", modelo: "mustang", precio: 1300, img:"./img/mustang.jpg"},
-    {id: 5, marca: "gibson", modelo: "les paul", precio: 2500, img: "./img/lespaul.jpg"},
-    {id: 6, marca: "gibson", modelo: "sg", precio: 1800, img:"./img/sg.jpg"},
-    {id: 7, marca: "gibson", modelo: "335", precio: 4000, img:"./img/335.jpg"},
-    {id: 8, marca: "gibson", modelo: "explorer", precio: 2000, img:"./img/explorer.jpg"},
-];
-
 
 const containerDiv = document.querySelector(".container")
 const carritoDiv = document.querySelector(".carrito")
 const carrito = JSON.parse(localStorage.getItem("carrito"))
 
-function crearCards (){
-  productos.forEach(producto=>{
+
+
+async function fetchAPI(){
+  try{
+  const URL = "./data/data.json";
+  const response = await fetch (URL);
+  const data = await response.json();
+  console.log(data);
+  crearCards(data);
+
+} catch (error){
+  console.log(error);
+}
+}
+
+fetchAPI()
+
+
+
+function crearCards (arr){
+  arr.forEach(producto=>{
     containerDiv.innerHTML += `<div style="padding: 20px; background-color: white; border: 2px solid black; display: grid; ">
      <h4>${producto.marca}</h4>
      <h4>${producto.modelo}</h4>
@@ -25,11 +34,11 @@ function crearCards (){
      `
 
   })
-  agregarFuncionAlBoton();
+  agregarFuncionAlBoton(arr);
 }
 
-function agregarFuncionAlBoton(){
-  productos.forEach(producto=>{
+function agregarFuncionAlBoton(arr){
+  arr.forEach(producto=>{
     document.querySelector(`#btn-agregar${producto.id}`).addEventListener("click",()=>{
       agregarAlCarrito(producto);
     })
@@ -42,17 +51,22 @@ function agregarAlCarrito(parametro){
   
   carrito.some(prod=> prod.id === parametro.id) ? cantidad++ : parametro.cantidad = 1; carrito.push(parametro);
  
+          //    AIUDA !! :
+// nose como hacer funcionar el "else" (let prodFind) en el operador ternario de arriba, quizas encerrandolo en una variable pero no pude...
+// me tira error cuando apreto agregar por segunda vez, no me lo suma.
+
+
   /* 
   let existe = carrito.some(prod=> prod.id === parametro.id);
-
-  if (existe === false) { 
+    if (existe === false) { 
       parametro.cantidad = 1;
       carrito.push(parametro)} 
 
-  else{  
-    let prodFind = carrito.find(prod=> prod.id === parametro.id),prodFind.cantidad++
+  else{  let prodFind = carrito.find(prod=> prod.id === parametro.id),
+    prodFind.cantidad++
   } */
 
+  
   console.log(carrito);  
   renderizarCarrito()
   
@@ -141,4 +155,4 @@ function botonRestar(){
 }
 
 renderizarCarrito()
-crearCards();
+
