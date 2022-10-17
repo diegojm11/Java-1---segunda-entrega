@@ -3,6 +3,8 @@
 const containerDiv = document.querySelector(".container")
 const carritoDiv = document.querySelector(".carrito")
 const carrito = JSON.parse(localStorage.getItem("carrito"))
+const inputSearch = document.querySelector(".inputSearch")
+const btnSearch = document.querySelector(".btnSearch")
 
 
 
@@ -13,6 +15,12 @@ async function fetchAPI(){
   const data = await response.json();
   console.log(data);
   crearCards(data);
+  
+  btnSearch.addEventListener('click',()=>{
+  const filtro = filtrarPorMarca(data)
+  crearCards(filtro);
+  
+})
 
 } catch (error){
   console.log(error);
@@ -36,6 +44,18 @@ function crearCards (arr){
   })
   agregarFuncionAlBoton(arr);
 }
+
+function filtrarPorMarca(arr){
+  containerDiv.innerHTML = "";
+  let marca = inputSearch.value;
+ // let marcaC = marca.charAt(0).toUpperCase()+marca.slice(1);
+ if (!marca){
+  return arr;
+}else{
+  return arr.filter((e)=> e.marca.includes(marca))
+}
+}
+
 
 function agregarFuncionAlBoton(arr){
   arr.forEach(producto=>{
